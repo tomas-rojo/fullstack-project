@@ -14,14 +14,27 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
+      - uses: ./.github/actions/setup-python
+      - name: Run tests
+        run: make test
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: ./.github/actions/setup-python
+      - name: Run linters
+        run: make lint
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [test, lint]
+    steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
-      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+      - uses: docker/build-push-action@v3.4.0
         with:
-          python-version: "3.10"
-      - uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
-        with:
-          version: "0.11.4"
-      - name: Run tests
-        run: make test
+          context: .
+          file: backend/Dockerfile
+          push: false
+          tags: backend:${{ inputs.sha }}

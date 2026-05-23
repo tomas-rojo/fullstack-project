@@ -1,6 +1,6 @@
-import app.models  # noqa: F401 — ensures all service models are registered before use
 from sqlmodel import Session, create_engine, select
 
+import app.models  # noqa: F401 — ensures all service models are registered before use
 from app.core.config import settings
 from app.membership_service import crud
 from app.membership_service.models import User, UserCreate
