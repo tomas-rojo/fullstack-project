@@ -18,6 +18,19 @@ jobs:
         with:
           persist-credentials: false
       - uses: ./.github/actions/setup-python
+      - name: Create .env
+        run: |
+          cat > .env << 'EOF'
+          POSTGRES_SERVER=localhost
+          POSTGRES_PORT=5432
+          POSTGRES_DB=app
+          POSTGRES_USER=postgres
+          POSTGRES_PASSWORD=changethis
+          FIRST_SUPERUSER=admin@example.com
+          FIRST_SUPERUSER_PASSWORD=changethis
+          SECRET_KEY=changethis
+          PROJECT_NAME="Full Stack Project"
+          EOF
       - name: Run tests
         run: make test
   lint:
@@ -28,6 +41,19 @@ jobs:
         with:
           persist-credentials: false
       - uses: ./.github/actions/setup-python
+      - name: Create .env
+        run: |
+          cat > .env << 'EOF'
+          POSTGRES_SERVER=localhost
+          POSTGRES_PORT=5432
+          POSTGRES_DB=app
+          POSTGRES_USER=postgres
+          POSTGRES_PASSWORD=changethis
+          FIRST_SUPERUSER=admin@example.com
+          FIRST_SUPERUSER_PASSWORD=changethis
+          SECRET_KEY=changethis
+          PROJECT_NAME="Full Stack Project"
+          EOF
       - name: Run linters
         run: make lint
   build:

@@ -31,10 +31,12 @@ jobs:
         with:
           filters: |
             backend:
+              - **/ci-backend.yml
               - backend/**
               - pyproject.toml
               - uv.lock
             frontend:
+              - **/ci-frontend.yml
               - frontend/**
               - package.json
               - bun.lock
