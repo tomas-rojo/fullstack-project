@@ -8,5 +8,6 @@ if [ -d "$VENV_DIR" ]; then
     export PATH="$VENV_DIR/bin:$PATH"
 fi
 
+echo "Running backend unit tests..."
 coverage run -m pytest tests/
 coverage report --show-missing --skip-covered
